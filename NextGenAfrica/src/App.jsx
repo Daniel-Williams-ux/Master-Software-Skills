@@ -1,20 +1,11 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
 
 function App() {
 	  return (
 		      <div className="App">
-		        <header className="bg-blue-500 p-4">
-		          <h1 className="text-white text-3xl">NextGen Africa</h1>
-		          <nav>
-		            <ul className="flex space-x-4">
-		              <li><a href="#linux" className="text-white">Linux</a></li>
-		              <li><a href="#mongodb" className="text-white">MongoDB</a></li>
-		              <li><a href="#frontend" className="text-white">Frontend</a></li>
-		              <li><a href="#backend" className="text-white">Backend</a></li>
-		            </ul>
-		          </nav>
-		        </header>
+		        <Header />
 		        <main>
 		          {/* Sections will be rendered here */}
 		        </main>
@@ -26,4 +17,5 @@ function App() {
 }
 
 export default App;
+
 
