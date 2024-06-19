@@ -9,8 +9,8 @@ function Header() {
 		setIsOpen(!isOpen)
 	}
 	  return (
-		      <header className="bg-black py-4 flex justify-between items-center top-0 left-0 w-full z-50 shadow-md fixed">
-		        <img src={logo} alt="NextGen Africa" className="w-34 h-10 sm:h-10  contrast-200" />
+		      <header className="bg-black flex justify-between items-center top-0 left-0 w-full h-24 z-50 shadow-md fixed">
+		        <img src={logo} alt="NextGen Africa" className="w-32 sm:w-40 md:w-48 lg:w-56 h-auto object-contain" />
 		        <nav className={`flex-col md:flex-row md:flex space-x-4 ${isOpen ? 'flex' : 'hidden'} md:flex`}>
 		          <Link to="/" className="text-white hover:text-gray-300">Home</Link>
 		          <Link to="/overview" className="text-white hover:text-gray-300">Overview</Link>
