@@ -4,7 +4,7 @@ function Overview() {
 	  return (
 		      <div>
 		        <h2>Overview</h2>
-		        <p>Learn about our programs and offerings.</p>
+		        <p className='text-black' >Learn about our programs and offerings.</p>
 		      </div>
 		    );
 }
