@@ -14,9 +14,9 @@ function Header() {
   };
 
   return (
-    <header className="bg-black flex justify-between items-center top-0 left-0 w-full h-24 z-50 shadow-md fixed">
+    <header className="bg-black flex justify-between items-center top-0 left-0 w-full h-36 z-50 shadow-md fixed">
       {/* Logo */}
-      <img src={logo} alt="NextGen Africa" className="w-32 md:w-40 lg:w-48 h-44 object-contain" />
+      <img src={logo} alt="NextGen Africa" className="w-32 md:w-40 lg:w-48 h-36 object-contain" />
 
       {/* Mobile Menu Button */}
       <button
@@ -24,6 +24,7 @@ function Header() {
         className={`md:hidden text-white hover:text-green-200 font-display subpixel-antialiased px-2 py-1 mr-2 rounded-md z-50 ${
           isOpen ? 'fixed top-4 right-4 bg-red-500 border border-white' : 'bg-slate-500'
         }`}
+		aria-label="Toggle menu"
       >
         {isOpen ? '✕' : 'Menu'}
       </button>
@@ -33,6 +34,7 @@ function Header() {
         className={`fixed inset-0 py-8 hover:text-green-200 subpixel-antialiased bg-black bg-opacity-95 text-2xl  font-display flex flex-col items-center justify-center transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } md:relative md:inset-auto md:bg-transparent md:flex-row md:flex md:space-x-4 md:translate-x-0`}
+		aria-label="main navigation"
       >
         <Link 
           to="/" 
