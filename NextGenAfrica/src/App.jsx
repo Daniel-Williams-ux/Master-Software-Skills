@@ -4,8 +4,11 @@ import './index.css';
 import './App.css';
 import Header from './components/Header';
 import Home from './pages/Home'; 
-import Overview from './pages/Overview';
+import Models from './pages/Models';
+import Ownership from './pages/Ownership'; 
+import Experience from './pages/Experience'; 
 import About from './pages/About'; 
+import Contact from './pages/Contact'; 
 
 function App() {
 	  return (
@@ -13,8 +16,11 @@ function App() {
 		        <Header />
 		          <Routes>
 		            <Route path="/" element={<Home />} />
-		            <Route path="/overview" element={<Overview />} />
+		            <Route path="/models" element={<Models />} />
+					<Route path="/ownership" element={<Ownership />} />
+					<Route path="/experience" element={<Experience />} />
 		            <Route path="/about" element={<About />} />
+					<Route path="/contact us" element={<Contact Us/>} />
 		          </Routes>
 		      </div>
 		    );

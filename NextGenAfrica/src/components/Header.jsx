@@ -1,65 +1,94 @@
+// Header.js
 import React, { useState } from 'react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo1.jpg'; 
 
-function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+const navigation = [
+  { name: 'Home', href: '/', current: true }, 
+  { name: 'Models', href: '/models', current: false },
+  { name: 'Ownership', href: '/ownership', current: false },
+  { name: 'Experience', href: '/experience', current: false }, 
+  { name: 'About', href: '/about', current: false }, 
+  { name: 'Contact Us', href: '/contact us', current: false }, 
+];
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
-  const handleLinkClick = () => {
-    setIsOpen(false);
-  };
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-black flex justify-between items-center top-0 left-0 w-full h-36 z-50 shadow-md fixed">
-      {/* Logo */}
-      <img src={logo} alt="NextGen Africa" className="w-32 md:w-40 lg:w-48 h-36 object-contain" />
+    <header className="bg-white shadow">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between h-24">
+        <div className="flex items-center">
+          <img
+            className="block lg:hidden h-20 w-auto" // Increased height for mobile logo
+            src={logo} // Replace with actual mobile logo path
+            alt="Your Logo"
+          />
+          <img
+            className="hidden lg:block h-24 w-auto" // Increased height for desktop logo
+            src={logo}
+            alt="Your Logo"
+          />
+          </div>
+          <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            {navigation.map((item) => (
+               <Link
+               key={item.name}
+               to={item.href} // Use Link component with the correct path
+               className={classNames(
+                 item.current
+                   ? 'border-indigo-500 text-gray-900'
+                   : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
+               )}
+               aria-current={item.current ? 'page' : undefined}
+             >
+               {item.name}
+             </Link>
+            ))}
+          </div>
+          <div className="flex items-center sm:hidden">
+            <button
+              type="button"
+              className="-mr-2 p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <span className="sr-only">Open main menu</span>
+              {mobileMenuOpen ? (
+                <XIcon className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={toggleMenu}
-        className={`md:hidden text-white hover:text-green-200 font-display subpixel-antialiased px-2 py-1 mr-2 rounded-md z-50 ${
-          isOpen ? 'fixed top-4 right-4 bg-red-500 border border-white' : 'bg-slate-500'
-        }`}
-		aria-label="Toggle menu"
-      >
-        {isOpen ? '✕' : 'Menu'}
-      </button>
-
-      {/* Mobile Menu Navigation */}
-      <nav
-        className={`fixed inset-0 py-8 hover:text-green-200 subpixel-antialiased bg-black bg-opacity-95 text-2xl  font-display flex flex-col items-center justify-center transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:relative md:inset-auto md:bg-transparent md:flex-row md:flex md:space-x-4 md:translate-x-0`}
-		aria-label="main navigation"
-      >
-        <Link 
-          to="/" 
-          className="text-white hover:text-green-200 font-display subpixel-antialiased py-2 text-xl md:text-base" 
-          onClick={handleLinkClick}
-        >
-          Home
-        </Link>
-        <Link 
-          to="/overview" 
-          className="text-white hover:text-green-200 font-display subpixel-antialiased py-2 text-xl md:text-base" 
-          onClick={handleLinkClick}
-        >
-          Overview
-        </Link>
-        <Link 
-          to="/about" 
-          className="text-white hover:text-green-200 font-display subpixel-antialiased py-2 text-xl md:text-base" 
-          onClick={handleLinkClick}
-        >
-          About
-        </Link>
-      </nav>
+      <div className={classNames(mobileMenuOpen ? 'block' : 'hidden', 'sm:hidden')}>
+        <div className="pt-2 pb-3 space-y-1">
+          {navigation.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={classNames(
+                item.current
+                  ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+                  : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+                'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
+              )}
+              aria-current={item.current ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
     </header>
   );
 }
-
-export default Header;

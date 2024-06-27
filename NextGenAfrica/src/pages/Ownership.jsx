@@ -1,13 +1,13 @@
 import React from 'react';
 
-function Overview() {
+function Ownership() {
 	  return (
 		      <div className='p-40'>
-		        <h2>Overview</h2>
+		        <h2>Ownership</h2>
 		        <p className='text-black' >Learn about our programs and offerings.</p>
 		      </div>
 		    );
 }
 
-export default Overview;
+export default Ownership;
 

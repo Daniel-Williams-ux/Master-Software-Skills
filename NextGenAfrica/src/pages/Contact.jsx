@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { Flex, Box, Button } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+
+function Contact() {
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch('http://localhost:5000/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      setSubmittedMessage('Thank you for your submission! Our architect will contact you as soon as possible.');
+      setFormData({}); // Clear form data
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
+  return (
+    <Flex className="flex items-center bg-hero-pattern bg-contain p-4 justify-center h-screen bg-gray-100">
+      <Box className="bg-black p-28 rounded-md shadow-md w-full max-w-md mb-20">
+        <h2 className="text-3xl text-amber-500 font-semibold mb-4">Contact Us</h2>
+        <p className="text-red-500 mb-8">
+          Get Free one-one session! Contact us using the form below.
+        </p>
+        {/* {submittedMessage && (
+          <div className="text-custom mb-4">{submittedMessage}</div>
+        )} */}
+        <form onSubmit={handleSubmit}>
+          <FormControl className="mb-5">
+            <FormLabel className="text-blue-500 w-full mb-1 text-lg" htmlFor="name">Name</FormLabel>
+            <Input required className="w-full" type="text" placeholder="Enter your name" name="name" autoComplete="name" id="name" onChange={handleChange} value={formData.name || ''} />
+          </FormControl>
+
+          <FormControl className="mb-5">
+            <FormLabel className="text-blue-500 mb-1 text-lg" htmlFor="email">Email</FormLabel>
+            <Input required className="w-full" type="email" placeholder="Enter your email" name="email" autoComplete="email" id="email" onChange={handleChange} value={formData.email || ''} />
+          </FormControl>
+
+          <FormControl className="mb-1">
+            <FormLabel className="text-blue-500 text-lg" htmlFor="phone">Phone Number</FormLabel>
+            <Input required className="w-full" type="tel" placeholder="Enter your phone number" name="tel" autoComplete="tel" id="tel" onChange={handleChange} value={formData.tel || ''} />
+          </FormControl>
+          <Button
+            type="submit"
+            colorScheme="teal"
+            size=""
+            width="full"
+            md={4}
+            disabled={loading}
+            className="bg-blue-800 hover:bg-blue-300 hover:text-white text-customBlack border-transparent rounded-sm font-semibold py-2 px-4 w-full h-3/5 mt-10 overflow-hidden"
+          >
+            {loading ? 'Loading...' : 'Submit'}
+          </Button>
+          {submittedMessage && (
+          <div className="text-custom mb-4">{submittedMessage}</div>
+        )}
+        </form>
+      </Box>
+    </Flex>
+  );
+}
+
+export default Contact;
